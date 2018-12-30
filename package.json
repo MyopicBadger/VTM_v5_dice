@@ -1,0 +1,15 @@
+{
+  "name": "hunger",
+  "version": "1.0.0",
+  "description": "Dice roller for Vampire The Masquerade V5",
+  "main": "hunger.model.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Graeme Rockhill",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.11.0",
+    "eslint-config-google": "^0.11.0"
+  }
+}

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="../../../../favicon.ico">
+
+	<title>Hunger Dice</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="cover.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	 crossorigin="anonymous">
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/toastr.min.js"></script>
+	<link href="/static/css/toastr.min.css" rel="stylesheet" />
+</head>
+
+<body class="text-center">
+
+	<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column" id="app">
+		<header class="masthead mb-auto">
+			<div class="row toppadding">
+				<div class="col">
+					<rater v-bind:config="{title:'Hunger', maxsize:6}" v-model="hungerpool"></rater>
+				</div>
+
+				<div class="col">
+					<rater v-bind:config="{title:'Willpower', maxsize:10}" v-model="willpowerpool"></rater>
+				</div>
+			</div>
+			<div class="row toppadding">
+				<div class="col">
+					<rater v-bind:config="{title:'Attribute', maxsize:6}" v-model="attributepool"></rater>
+				</div>
+
+				<div class="col">
+					<rater v-bind:config="{title:'Skill', maxsize:6}" v-model="skillpool"></rater>
+				</div>
+
+			</div>
+			<div class="row toppadding">
+				<div class="col">
+					<a href="#" class="btn btn-lg btn-secondary" v-on:click="rouseCheck">Rouse Check</a>
+				</div>
+				<div class="col">
+					<a href="#" class="btn btn-lg btn-secondary" v-on:click="willpowerCheck">Willpower Check</a>
+				</div>
+			</div>
+		</header>
+
+		<main role="main" class="inner cover">
+			<p class="lead">Your pool consists of {{ hungerpool }} hunger dice, {{attributepool}} attribute dice and
+				{{skillpool}} skill dice, for a total of {{parseInt(attributepool) + parseInt(skillpool)}} dice</p>
+
+			<div class="collapse multi-collapse show" id="collapse-homepage">
+				<h1 class="cover-heading">Roll your dice pool...</h1>
+				<p class="lead">
+					<a href="#" class="btn btn-lg btn-secondary" v-on:click="rollDice" data-toggle="collapse" data-target=".multi-collapse">Roll</a>
+				</p>
+			</div>
+			<div class="collapse multi-collapse" id="collapse-results">
+				<p class="lead">
+					<span v-for="roll in dicerolls">
+						&nbsp;<span class="badge" v-bind:title="roll.summary" v-bind:class="{ 'badge-primary': roll.success, 'badge-secondary': roll.failure, 'badge-danger': roll.blood, 'badge-light': roll.bonus, 'badge-success': roll.willpower}">{{
+							roll.result }}</span>
+					</span>
+				</p>
+				<h1 class="cover-heading">{{ successes }} successes</h1>
+				<h1 v-if="messyCritical">Messy Critical!</h1>
+				<h1 v-if="bestialFailure">Bestial Failure!</h1>
+
+				<p class="lead">
+					<a href="#" class="btn btn-lg btn-secondary" v-on:click="rollDice">Roll pool again?</a>
+					<a href="#" class="btn btn-lg btn-secondary" v-on:click="useWillpower" v-if="willpowerpool > 0 && !willpowerAlreadyUsed">+Willpower</a>
+				</p>
+
+			</div>
+
+		</main>
+
+		<footer class="mastfoot mt-auto">
+			<div class="inner">
+				<p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+			</div>
+		</footer>
+	</div>
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.bundle.js"></script>
+	<script src="hunger.model.js"></script>
+</body>
+
+</html>
